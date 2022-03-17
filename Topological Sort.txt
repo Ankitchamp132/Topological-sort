@@ -1,0 +1,32 @@
+	void topoUtil(int val,bool *visited,vector<int> &x,vector<int> adj[]){
+	    visited[val]=true;
+	    for(auto pr:adj[val]){
+	        if(visited[pr]==false){
+	            topoUtil(pr,visited,x,adj);
+	        }
+	    }
+	    x.push_back(val);
+	}
+	
+	vector<int> topoSort(int V, vector<int> adj[]) 
+	{
+	    vector<int> x;
+	    bool *visited=new bool[V];
+	    for(int i=0;i<V;i++){
+	        visited[i]=false;
+	    }
+	    for(int i=0;i<V;i++){
+	        if(visited[i]==false){
+	            topoUtil(i,visited,x,adj);
+	        }
+	    }
+	    vector<int> y;
+	    int j=x.size()-1;
+	    while(x.size()>0){
+	        int item=x[j];
+	        x.pop_back();
+	        y.push_back(item);
+	        j-=1;
+	    }
+	    return y;
+	}
